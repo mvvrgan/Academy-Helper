@@ -6,10 +6,9 @@ export async function start() {
     this.Commands = []
 
     let Client = utils.apps.discord.Client
-    
-    Client.user.setActivity(`${((await utils.user.get()).length)} users`, {
-        type: 'WATCHING',
-        url: "https://roranking.com"
+    console.log(Client.guilds.cache.get(process.env.DISCORD_GUILD).memberCount)
+    Client.user.setActivity(`the Olympics`, {
+        type: 'COMPETING',
     });
     
     fs.readdir(`${__dirname}/../commands`, (err, files) => {

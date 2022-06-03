@@ -1,27 +1,19 @@
 import 'dotenv/config';
 
 import * as utils from './tools/utils/utils';
-import * as server from './tools/server'
 import * as bot from './tools/bot'
 
 /* Discord */
 utils.apps.discord.login(process.env.DISCORD_TOKEN)
-    .then(res => {
+    .then(async res => {
         console.log(res);
         bot.start();
+        //await (await (utils.apps.discord.Client.guilds.cache.get(process.env.DISCORD_GUILD).members.fetch('525658603323916308'))).roles.add('982087242052960276')
     })
     .catch(err => {
         console.log(err);
     });
 
-/* Roblox */
-utils.apps.roblox.login(process.env.RBLX_COOKIE)
-    .then(res => {
-        console.log(res);
-    })
-    .catch(err => {
-        console.log(err);
-    });
-
-/* Server */
-server.start(80)
+utils.bans.startCheck();
+utils.warnings.startCheck();
+utils.mutes.startCheck();

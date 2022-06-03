@@ -15,13 +15,8 @@ function login (Token: string) {
     });
 };
 
-let MessageEmbed = new discord.MessageEmbed()
-                        .setColor('#474747')
-                        .setFooter('Purchasing Hub');
-
 /* Properties Exports */
 export {DiscordClient as Client};
-export {MessageEmbed as Embed};
 
 /* Function Exports */
 export {login};
