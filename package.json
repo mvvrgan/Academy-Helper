@@ -1,5 +1,5 @@
 {
-  "name": "academy-helper",
+  "name": "purchasing-hub",
   "version": "1.0.0",
   "description": "",
   "main": "src/start.ts",
@@ -8,22 +8,31 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mvvrgan/Academy-Helper.git"
+    "url": "git+https://github.com/mvvrgan/Purchasing-Hub.git"
   },
-  "author": "Morgan Dale",
-  "license": "MIT",
+  "author": "mvvrgan",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mvvrgan/Academy-Helper/issues"
+    "url": "https://github.com/mvvrgan/Purchasing-Hub/issues"
   },
-  "homepage": "https://github.com/mvvrgan/Academy-Helper#readme",
+  "homepage": "https://github.com/mvvrgan/Purchasing-Hub#readme",
   "dependencies": {
+    "@types/mysql": "^2.15.21",
+    "axios": "^0.27.2",
     "discord.js": "^13.7.0",
     "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "fetch": "^1.1.0",
     "fs": "^0.0.1-security",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "noblox.js": "^4.13.1",
+    "path": "^0.12.7",
+    "sweetalert2": "^11.4.17",
+    "ts-node": "^10.7.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@types/mysql": "^2.15.21",
-    "nodemon": "^2.0.16"
+    "@types/express": "^4.17.13"
   }
 }

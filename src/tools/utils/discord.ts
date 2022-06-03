@@ -3,7 +3,7 @@ const DiscordClient = new discord.Client({ intents: new discord.Intents(32767) }
 
 /* Functions */
 
-function login (Token: any) {
+function login (Token: string) {
     return new Promise((resolve, reject) => {
         DiscordClient.login(Token)
             .then(() => {
@@ -17,7 +17,7 @@ function login (Token: any) {
 
 let MessageEmbed = new discord.MessageEmbed()
                         .setColor('#474747')
-                        .setFooter('Academy Helper');
+                        .setFooter('Purchasing Hub');
 
 /* Properties Exports */
 export {DiscordClient as Client};

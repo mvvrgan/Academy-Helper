@@ -7,8 +7,9 @@ export async function start() {
 
     let Client = utils.apps.discord.Client
     
-    Client.user.setActivity(`${5} users`, {
-        type: 'WATCHING'
+    Client.user.setActivity(`${((await utils.user.get()).length)} users`, {
+        type: 'WATCHING',
+        url: "https://roranking.com"
     });
     
     fs.readdir(`${__dirname}/../commands`, (err, files) => {

@@ -1,0 +1,6 @@
+{
+    "conmpilerOptions": {
+        "target": "esnext",
+        "watch": true,
+    }
+}
