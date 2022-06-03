@@ -1,0 +1,29 @@
+{
+  "name": "academy-helper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/start.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mvvrgan/Academy-Helper.git"
+  },
+  "author": "Morgan Dale",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mvvrgan/Academy-Helper/issues"
+  },
+  "homepage": "https://github.com/mvvrgan/Academy-Helper#readme",
+  "dependencies": {
+    "discord.js": "^13.7.0",
+    "dotenv": "^16.0.1",
+    "fs": "^0.0.1-security",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "@types/mysql": "^2.15.21",
+    "nodemon": "^2.0.16"
+  }
+}
