@@ -31,8 +31,8 @@ export function get(id: number | string) {
 };
 
 export function create(actor: string, target: string, reason: string, datetime: string) {
-    let infactionid = `WARNING_${uuidv4()}`
-    utils.apps.mysql.query(`INSERT INTO infractions (infractionid, action, actor, target, reason) VALUES (?, ?, ?, ?, ?)`, [infactionid, 'BAN', actor, target, reason])
+    let infactionid = utils.uuidToBase64(uuidv4())
+    utils.apps.mysql.query(`INSERT INTO infractions (infractionid, action, actor, target, reason) VALUES (?, ?, ?, ?, ?)`, [infactionid, 'WARNING', actor, target, reason])
     return utils.apps.mysql.query(`INSERT INTO warnings (infractionid, expires) VALUES (?, ?)`, [infactionid, datetime])
 };
 

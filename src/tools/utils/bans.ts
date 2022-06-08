@@ -32,7 +32,7 @@ export function get(id: number | string) {
 
 export function create(actor:string, target:string, reason:string, datetime:string) {
     return new Promise(async (resolve, reject) => {
-        let infactionid = `BAN_${uuidv4()}`
+        let infactionid = utils.uuidToBase64(uuidv4())
         utils.apps.mysql.query(`INSERT INTO infractions (infractionid, action, actor, target, reason) VALUES (?, ?, ?, ?, ?)`, [infactionid, 'BAN', actor, target, reason])
         utils.apps.mysql.query(`INSERT INTO bans (infractionid, expires) VALUES (?, ?)`, [infactionid, datetime])
     });

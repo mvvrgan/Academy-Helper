@@ -31,10 +31,16 @@ function run(interaction: any, client: discord.Client) {
 
                         if (infractions.length == 0) Embed.setDescription('No infractions were found');
                         await infractions.forEach(async infraction => {
-                            Embed.addField(infraction.infractionid, `Type: ${infraction.action}\nActor: ${await client.users.fetch(infraction.actor)}\nReason: ${infraction.reason}`)
+                            Embed.addField(`${infraction.action} | ${infraction.infractionid}`, `Reason: ${infraction.reason} | Moderator: ${await client.users.fetch(infraction.actor)}`)
                         });
 
-                        return interaction.reply({ embeds: [Embed] });
+                        interaction.user.send({embeds: [Embed]})
+                            .then(() => {
+                                return interaction.reply(`<@${interaction.user.id}>, please check your DMs!`);
+                            })
+                            .catch(() => {
+                                return interaction.reply(`<@${interaction.user.id}>, please enable your DMs!`);
+                            })
                     })
                     .catch(error => {
                         console.log(error)
