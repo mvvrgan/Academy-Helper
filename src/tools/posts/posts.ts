@@ -1,5 +1,5 @@
 import * as hiring from './hiring';
-import * as forhire from './for-hire';
+import * as forhire from './forhire';
 import * as buy from './buy';
 import * as sell from './sell';
 

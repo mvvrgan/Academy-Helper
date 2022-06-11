@@ -91,8 +91,8 @@ async function finalize(client: discord.Client, user: discord.User, info) {
 
     let Embed = new discord.MessageEmbed()
         .setAuthor({ name: user.tag, iconURL: user.avatarURL() })
-        .setTitle(`Hiring Post`)
-        .addField(`Hiring`, info.Hiring)
+        .setTitle(`Selling Post`)
+        .addField(`Item`, info.Selling)
         .addField(`Information`, info.Information)
         .addField(`Payment`, info.Payment)
         .addField(`Contact`, `<@${user.id}>`)
@@ -135,23 +135,23 @@ export async function run(interaction, client) {
 
     await interaction.reply("Starting Prompt...")
 
-    //Who are you hiring?
-    input(client, user, { title: `Who are you tying to hire?`, description: `scripter, builder, modeler, interference, graphics, animator, composer, other` }, 60)
+    //What are you selling?
+    input(client, user, { title: `What are you selling?`, description: `The item you are trying to sell` }, 60)
         .then((response: string) => {
-            let Hiring = response
-            console.log(Hiring)
+            let Selling = response
+            console.log(Selling)
 
             //Information
-            input(client, user, { title: `Please provide some information`, description: `Describe what your hiring post is about. Describe the job needed, and other important details!` }, 120)
+            input(client, user, { title: `How much are you selling '${Selling}' for?`, description: `Include the price & the currency: R$, $, £` }, 30)
                 .then((response) => {
-                    let Information = response
-                    console.log(Information)
+                    let Payment = response
+                    console.log(Payment)
 
                     //Compensation
-                    input(client, user, { title: `How much are you compensating?`, description: `Include the price & the currency: R$, $, £` }, 30)
+                    input(client, user, { title: `Provide some information`, description: `Will you be selling this to only one person? Is payment negotiable?` }, 120)
                         .then((response) => {
-                            let Payment = response
-                            console.log(Payment)
+                            let Information = response
+                            console.log(Information)
 
                             //Image
                             inputAttachmentOptional(client, user, { title: `Would you like to upload an image to your post?`, description: `If you would like to upload an image to your post, send the attachment; if not, please click 'Done!'` }, 30)
@@ -160,7 +160,7 @@ export async function run(interaction, client) {
                                     console.log(ImageUrl)
 
                                     // Finalization
-                                    finalize(client, user, { Hiring, Information, Payment, ImageUrl })
+                                    finalize(client, user, { Selling, Information, Payment, ImageUrl })
                                 })
                                 .catch(async (error) => {
                                     if (error.dm) {

@@ -74,6 +74,7 @@ async function run(interaction: any, client: discord.Client) {
                             return
                         }
                         i.message.edit({ components: [row] })
+                        if (type === 'for-hire') type = 'forhire';
                         await posts[type].run(i, client)
                     });
 

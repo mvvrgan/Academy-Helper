@@ -91,8 +91,8 @@ async function finalize(client: discord.Client, user: discord.User, info) {
 
     let Embed = new discord.MessageEmbed()
         .setAuthor({ name: user.tag, iconURL: user.avatarURL() })
-        .setTitle(`Hiring Post`)
-        .addField(`Hiring`, info.Hiring)
+        .setTitle(`Buying Post`)
+        .addField(`Item`, info.Buying)
         .addField(`Information`, info.Information)
         .addField(`Payment`, info.Payment)
         .addField(`Contact`, `<@${user.id}>`)
@@ -136,19 +136,19 @@ export async function run(interaction, client) {
     await interaction.reply("Starting Prompt...")
 
     //Who are you hiring?
-    input(client, user, { title: `Who are you tying to hire?`, description: `scripter, builder, modeler, interference, graphics, animator, composer, other` }, 60)
+    input(client, user, { title: `What are you trying to buy?`, description: `Tell us the item you'd like to buy` }, 60)
         .then((response: string) => {
-            let Hiring = response
-            console.log(Hiring)
+            let Buying = response
+            console.log(Buying)
 
             //Information
-            input(client, user, { title: `Please provide some information`, description: `Describe what your hiring post is about. Describe the job needed, and other important details!` }, 120)
+            input(client, user, { title: `Please provide some information`, description: `Describe the item in full & specific details` }, 120)
                 .then((response) => {
                     let Information = response
                     console.log(Information)
 
                     //Compensation
-                    input(client, user, { title: `How much are you compensating?`, description: `Include the price & the currency: R$, $, £` }, 30)
+                    input(client, user, { title: `How much are you looking to pay?`, description: `Include the price & the currency: R$, $, £` }, 30)
                         .then((response) => {
                             let Payment = response
                             console.log(Payment)
@@ -160,7 +160,7 @@ export async function run(interaction, client) {
                                     console.log(ImageUrl)
 
                                     // Finalization
-                                    finalize(client, user, { Hiring, Information, Payment, ImageUrl })
+                                    finalize(client, user, { Buying, Information, Payment, ImageUrl })
                                 })
                                 .catch(async (error) => {
                                     if (error.dm) {
