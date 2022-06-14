@@ -2,43 +2,44 @@ import * as utils from "../tools/utils/utils";
 import * as discord from "discord.js";
 import { v4 as uuidv4 } from 'uuid';
 import * as ms from "ms";
+import * as applications from "../tools/utils/applications";
 
 const skills = [
     {
         name: "Modeler",
-        value: 'modeler'
+        value: '983049161324785674'
     },
     {
         name: "Programmer",
-        value: 'programmer'
+        value: '983049154345435176'
     },
     {
         name: "Builder",
-        value: 'builder'
+        value: '983049139816374304'
     },
     {
         name: "Interface",
-        value: 'interface'
+        value: '983049165569392721'
+    },
+    {
+        name: "Animation",
+        value: '983049147160621077'
     },
     {
         name: "Designer",
-        value: 'designer'
+        value: '986367034969440437'
     },
     {
         name: "Composer",
-        value: 'composer'
+        value: '986367100727746621'
     },
     {
         name: "Clothing Designer",
-        value: 'clothing-designer'
+        value: '986367136282841139'
     },
     {
         name: "Graphics",
-        value: 'graphics'
-    },
-    {
-        name: "Other",
-        value: 'other'
+        value: '983049178508820520'
     },
 ];
 
@@ -58,6 +59,7 @@ const data = {
 
 async function run(interaction: any, client: discord.Client) {
     let skill = interaction.options.getString("skill")
+    console.log(skill)
 
     utils.permissions.check(interaction.member, data.name)
         .then(async () => {
@@ -96,13 +98,7 @@ async function run(interaction: any, client: discord.Client) {
                         }
                         i.message.edit({ components: [row] })
 
-                        let Embed = new discord.MessageEmbed()
-                            .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.avatarURL() })
-                            .setTitle(`:warning: Notice`)
-                            .setDescription(`Please enter your application details.`)
-                            .setTimestamp()
-                            .setColor('#4287f5')
-                            .setFooter('Academy Helper')
+                        applications.run(i, client, skill)
                     });
 
                     interaction.reply(`<@${interaction.user.id}>, please check your DMs!`);

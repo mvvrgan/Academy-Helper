@@ -2,6 +2,7 @@ import 'dotenv/config';
 
 import * as utils from './tools/utils/utils';
 import * as posts from './tools/posts/posts';
+import * as applications from './tools/utils/applications';
 import * as bot from './tools/bot'
 
 /* Discord */
@@ -20,3 +21,5 @@ utils.warnings.startCheck();
 utils.mutes.startCheck();
 
 posts.mod();
+applications.mod();
+applications.startCheck(); 
