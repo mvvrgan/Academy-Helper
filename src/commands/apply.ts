@@ -80,7 +80,7 @@ async function run(interaction: any, client: discord.Client) {
                         .setLabel('No')
                         .setStyle('DANGER'),
                 );
-
+            
             interaction.user.send({ embeds: [Embed], components: [row] })
                 .then((message) => {
                     // Collector
@@ -96,9 +96,13 @@ async function run(interaction: any, client: discord.Client) {
                         }
                         i.message.edit({ components: [row] })
 
-                        /* Continue Prompt */
-
-                        //await posts[type].run(i, client)
+                        let Embed = new discord.MessageEmbed()
+                            .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.avatarURL() })
+                            .setTitle(`:warning: Notice`)
+                            .setDescription(`Please enter your application details.`)
+                            .setTimestamp()
+                            .setColor('#4287f5')
+                            .setFooter('Academy Helper')
                     });
 
                     interaction.reply(`<@${interaction.user.id}>, please check your DMs!`);
