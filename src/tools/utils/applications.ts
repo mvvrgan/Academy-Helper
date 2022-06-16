@@ -177,7 +177,7 @@ async function finalize(client: discord.Client, user: discord.User, info) {
             let DMEmbed = new discord.MessageEmbed()
                 .setAuthor({ name: user.tag, iconURL: user.avatarURL() })
                 .setTitle(`Your application is pending!`)
-                .setDescription(`Skill Evaluators will review your application, and verify wether you meet the requirements to become a '${info.role.name}' skill role!`)
+                .setDescription(`Skill Evaluators will review your application, and verify wether you meet the requirements to become the '${info.role.name}' skill role!`)
                 .setTimestamp()
                 .setColor('#ffcd29')
                 .setFooter(`Academy Marketplace`)
