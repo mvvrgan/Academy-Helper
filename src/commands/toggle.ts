@@ -59,7 +59,7 @@ const data = {
     description: 'Choose a color to toggle',
     options: [
         {
-            name: "colour",
+            name: "color",
             description: "The color to toggle",
             type: 3,
             choices: roles,
