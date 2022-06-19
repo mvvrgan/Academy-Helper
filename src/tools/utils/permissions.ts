@@ -2,10 +2,13 @@ import * as discord from "discord.js";
 
 let Roles = {
     mod: '928058996928172053',
-    admin: '928053564583079968'
+    admin: '987572845821444116'
 }
 
 let Permissions = {
+    giveaway: [
+        Roles.admin
+    ],
     ban: [
         Roles.admin
     ],

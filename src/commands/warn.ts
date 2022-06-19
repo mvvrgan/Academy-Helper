@@ -14,12 +14,6 @@ const data = {
             required: true
         },
         {
-            name: "length",
-            description: "The length of the warning",
-            type: 3,
-            required: true
-        },
-        {
             name: "reason",
             description: "The reason to warn the user",
             type: 3,
@@ -31,17 +25,14 @@ const data = {
 async function run(interaction: any, client: discord.Client) {
     let user: discord.User = interaction.options.getUser('user');
     let reason: string = interaction.options.getString('reason');
-    let time = new Date(Date.now() + ms(interaction.options.getString('length')))
 
     utils.permissions.check(interaction.member, data.name)
         .then(async () => {
             // Infaction Stuff
-            let formattedtime = (new Date(time.getTime() - time.getTimezoneOffset() * 60000).toISOString()).slice(0, 19).replace('T', ' ')
 
             let WarnEmbed = new discord.MessageEmbed()
                 .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.avatarURL() })
                 .setTitle(`You were warned in ${client.guilds.cache.get(process.env.DISCORD_GUILD).name}`)
-                .addField(`Expires`, time.toLocaleString(), true)
                 .addField(`Reason`, reason, true)
                 .addField(`Moderator`, interaction.user.tag, true)
                 .setColor('#eb4334')
@@ -51,12 +42,11 @@ async function run(interaction: any, client: discord.Client) {
 
             let member: discord.GuildMember = await client.guilds.cache.get(process.env.DISCORD_GUILD).members.fetch(user.id)
 
-            utils.warnings.create(interaction.user.id, user.id, reason, formattedtime)
+            utils.warnings.create(interaction.user.id, user.id, reason)
                 .then(() => {
                     let Embed = new discord.MessageEmbed()
                         .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.avatarURL() })
                         .setTitle(`Warned ${user.tag}`)
-                        .addField(`Expires`, time.toLocaleString(), true)
                         .addField(`Reason`, reason, true)
                         .addField(`Moderator`, interaction.user.tag, true)
                         .setTimestamp()
@@ -79,7 +69,7 @@ async function run(interaction: any, client: discord.Client) {
             console.log(error)
             let Embed = new discord.MessageEmbed()
                 .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.avatarURL() })
-                .setTitle(error)
+                .setTitle('There was an error running the command')
                 .setColor('#eb4334')
                 .setFooter('Academy Helper')
                 .setTimestamp()

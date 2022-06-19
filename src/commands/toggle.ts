@@ -3,7 +3,69 @@ import * as discord from "discord.js";
 import { v4 as uuidv4 } from 'uuid';
 import * as ms from "ms";
 
-const roles = [
+const pings = [
+    {
+        name: "Giveaways",
+        value: '987546413867077672'
+    },
+    {
+        name: "Events",
+        value: '987565574357913661'
+    },
+    {
+        name: "Polls",
+        value: '987565809616425030'
+    },
+    {
+        name: "Partnerships",
+        value: '987566027686699068'
+    },
+    {
+        name: "Announcements",
+        value: '987565710995783711'
+    },
+    {
+        name: "QOTD",
+        value: '987565790486212608'
+    },
+    {
+        name: "General",
+        value: '987566264329306184'
+    },
+]
+
+const learning = [
+    {
+        name: "Programming",
+        value: '955866827546828810'
+    },
+    {
+        name: "Modeling",
+        value: '956017055352619100'
+    },
+    {
+        name: "Building",
+        value: '956017086180753418'
+    },
+    {
+        name: "Interface",
+        value: '956017141600116756'
+    },
+    {
+        name: "Animation",
+        value: '983046918466859008'
+    },
+    {
+        name: "Graphics",
+        value: '967036776856293406'
+    },
+    {
+        name: "Clothing Design",
+        value: '986857915166130237'
+    },
+]
+
+const colors = [
     {
         name: "red",
         value: '955861197457088552'
@@ -56,14 +118,49 @@ const roles = [
 
 const data = {
     name: 'toggle',
-    description: 'Choose a color to toggle',
+    description: 'Choose a role to toggle',
     options: [
         {
             name: "color",
-            description: "The color to toggle",
-            type: 3,
-            choices: roles,
-            required: true
+            description: "Toggle a color role!",
+            type: 1,
+            options: [
+                {
+                    name: "role",
+                    description: "The role to toggle",
+                    type: 3,
+                    required: true,
+                    choices: colors
+                },
+            ]
+        },
+        {
+            name: "learning",
+            description: "Toggle a learning role!",
+            type: 1,
+            options: [
+                {
+                    name: "role",
+                    description: "The role to toggle",
+                    type: 3,
+                    required: true,
+                    choices: learning
+                },
+            ]
+        },
+        {
+            name: "pings",
+            description: "The ping to toggle",
+            type: 1,
+            options: [
+                {
+                    name: "role",
+                    description: "The role to toggle",
+                    type: 3,
+                    required: true,
+                    choices: pings
+                },
+            ]
         }
     ]
 }
@@ -71,36 +168,63 @@ const data = {
 async function run(interaction: any, client: discord.Client) {
     let user: discord.User = interaction.user;
     let member: discord.GuildMember = await client.guilds.cache.get(process.env.DISCORD_GUILD).members.fetch(user.id)
-    let role = interaction.options.getString("colour")
+    let role = interaction.options.getString("role")
 
     utils.permissions.check(interaction.member, data.name)
         .then(async () => {
-            roles.forEach(role => {
-                if (member.roles.cache.has(role.value)) {
-                    member.roles.remove(role.value)
-                    .catch()
+            if (member.roles.cache.has(role)) {
+                member.roles.remove(role)
+                    .then(async () => {
+                        let Embed = new discord.MessageEmbed()
+                            .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.avatarURL() })
+                            .setTitle(`Succesfully toggled! (Removed ${member.guild.roles.cache.get(role).name})`)
+                            .setTimestamp()
+                            .setColor('#4287f5')
+                            .setFooter('Academy Helper')
+                        return interaction.reply({ embeds: [Embed] });
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                        let Embed = new discord.MessageEmbed()
+                            .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.avatarURL() })
+                            .setTitle('There was an error running the command')
+                            .setColor('#eb4334')
+                            .setFooter('Academy Helper')
+                            .setTimestamp()
+                        return interaction.reply({ embeds: [Embed] });
+                    })
+            } else {
+                // Delete all Color roles before applying new one IF color role is being applied
+                if (colors.find(c => c.value == role)) {
+                    colors.forEach(role => {
+                        if (member.roles.cache.has(role.value)) {
+                            member.roles.remove(role.value)
+                                .catch()
+                        };
+                    });
                 };
-            });
-            member.roles.add(role)
-                .then(async () => {
-                    let Embed = new discord.MessageEmbed()
-                        .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.avatarURL() })
-                        .setTitle(`Succesfully toggled!`)
-                        .setTimestamp()
-                        .setColor('#4287f5')
-                        .setFooter('Academy Helper')
-                    return interaction.reply({ embeds: [Embed] });
-                })
-                .catch((error) => {
-                    console.log(error)
-                    let Embed = new discord.MessageEmbed()
-                        .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.avatarURL() })
-                        .setTitle('There was an error running the command')
-                        .setColor('#eb4334')
-                        .setFooter('Academy Helper')
-                        .setTimestamp()
-                    return interaction.reply({ embeds: [Embed] });
-                })
+
+                member.roles.add(role)
+                    .then(async () => {
+                        let Embed = new discord.MessageEmbed()
+                            .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.avatarURL() })
+                            .setTitle(`Succesfully toggled! (Added ${member.guild.roles.cache.get(role).name})`)
+                            .setTimestamp()
+                            .setColor('#4287f5')
+                            .setFooter('Academy Helper')
+                        return interaction.reply({ embeds: [Embed] });
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                        let Embed = new discord.MessageEmbed()
+                            .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.avatarURL() })
+                            .setTitle('There was an error running the command')
+                            .setColor('#eb4334')
+                            .setFooter('Academy Helper')
+                            .setTimestamp()
+                        return interaction.reply({ embeds: [Embed] });
+                    })
+            }
         })
         .catch((error) => {
             console.log(error)

@@ -30,34 +30,12 @@ export function get(id: number | string) {
     });
 };
 
-export function create(actor: string, target: string, reason: string, datetime: string) {
+export function create(actor: string, target: string, reason: string) {
     let infactionid = utils.uuidToBase64(uuidv4())
     utils.apps.mysql.query(`INSERT INTO infractions (infractionid, action, actor, target, reason) VALUES (?, ?, ?, ?, ?)`, [infactionid, 'WARNING', actor, target, reason])
-    return utils.apps.mysql.query(`INSERT INTO warnings (infractionid, expires) VALUES (?, ?)`, [infactionid, datetime])
+    return utils.apps.mysql.query(`INSERT INTO warnings (infractionid) VALUES (?)`, [infactionid])
 };
 
 export function remove(infractionid: string) {
     return utils.apps.mysql.query(`DELETE FROM warnings WHERE infractionid = ?`, [infractionid])
 };
-
-export function check() {
-    return new Promise(async (resolve, reject) => {
-        utils.apps.mysql.query(`SELECT * FROM warnings`)
-            .then(warnings => {
-                if (warnings.length > 0) {
-                    warnings.forEach(warning => {
-                        let warningexpire = new Date(warning['expires'])
-                        let timenow = new Date()
-
-                        if (timenow > warningexpire) {
-                            remove(warning.infractionid)
-                        }
-                    });
-                }
-            });
-    });
-};
-
-export function startCheck() {
-    setInterval(check, 1000)
-}

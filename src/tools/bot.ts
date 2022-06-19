@@ -32,6 +32,13 @@ export async function start() {
 
         let command = this.Commands.find(command => command.data.name === interaction.commandName)
         if (!command) return;
+        // if the interaction was not created in the discord guild then reply with an error
+        if (interaction.guildId !== process.env.DISCORD_GUILD) {
+            interaction.reply({
+                content: `This command can only be used in the Discord server!`
+            })
+            return;
+        }
 
         command.run(interaction, Client)
     });
