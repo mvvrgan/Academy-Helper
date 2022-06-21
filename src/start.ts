@@ -4,6 +4,7 @@ import * as utils from './tools/utils/utils';
 import * as posts from './tools/posts/posts';
 import * as applications from './tools/utils/applications';
 import * as giveaways from './tools/utils/giveaways';
+import * as suggestions from './tools/utils/suggestions';
 import * as bot from './tools/bot'
 
 /* Discord */
@@ -21,6 +22,7 @@ utils.bans.startCheck();
 utils.mutes.startCheck();
 giveaways.startCheck();
 
+suggestions.mod();
 posts.mod();
 applications.mod();
 applications.startCheck(); 
