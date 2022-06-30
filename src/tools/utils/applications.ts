@@ -145,7 +145,7 @@ function inputAttachmentOptional(client: discord.Client, user: discord.User, que
 }
 
 async function finalize(client: discord.Client, user: discord.User, info) {
-    let Channel: discord.TextChannel = await client.channels.fetch('985327180978479124') as discord.TextChannel
+    let Channel: discord.TextChannel = await client.channels.fetch('990598551132340294') as discord.TextChannel
 
     let Embed = new discord.MessageEmbed()
         .setAuthor({ name: user.tag, iconURL: user.avatarURL() })
@@ -177,7 +177,7 @@ async function finalize(client: discord.Client, user: discord.User, info) {
             let DMEmbed = new discord.MessageEmbed()
                 .setAuthor({ name: user.tag, iconURL: user.avatarURL() })
                 .setTitle(`Your application is pending!`)
-                .setDescription(`Skill Evaluators will review your application, and verify wether you meet the requirements to become the '${info.role.name}' skill role!`)
+                .setDescription(`Skill Evaluators will review your application, and verify wether you meet the requirements to get the '${info.role.name}' skill role!`)
                 .setTimestamp()
                 .setColor('#ffcd29')
                 .setFooter(`Academy Marketplace`)

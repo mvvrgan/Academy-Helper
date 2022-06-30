@@ -1,43 +1,43 @@
 import * as discord from "discord.js";
 
 let Roles = {
-    mod: '928058996928172053',
-    admin: '987572845821444116',
-    staff: '967168245998182522'
+    admin: '974658518755967036',
+    moderation: '987572845821444116',
+    events: '966707252683759676'
 }
 
 let Permissions = {
     poll: [
-        Roles.staff,
+        Roles.events,
         Roles.admin
     ],
     giveaway: [
-        Roles.staff,
+        Roles.events,
         Roles.admin
     ],
     ban: [
-        Roles.admin
+        Roles.moderation
     ],
     clearinfractions: [
-        Roles.admin
+        Roles.moderation
     ],
     infractions: [
-        Roles.admin,
-        Roles.mod
+        Roles.moderation,
+        Roles.admin
     ],
     kick: [
-        Roles.admin,
-        Roles.mod
+        Roles.moderation,
+        Roles.admin
     ],
     removeinfraction: [
-        Roles.admin
+        Roles.moderation
     ],
     unban: [
-        Roles.admin
+        Roles.moderation
     ],
     warn: [
-        Roles.admin,
-        Roles.mod
+        Roles.moderation,
+        Roles.admin
     ],
 }
 

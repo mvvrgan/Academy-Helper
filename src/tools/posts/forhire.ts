@@ -87,7 +87,7 @@ function inputAttachmentOptional(client: discord.Client, user: discord.User, que
 }
 
 async function finalize(client: discord.Client, user: discord.User, info) {
-    let Channel: discord.TextChannel = await client.channels.fetch('982407369285832775') as discord.TextChannel
+    let Channel: discord.TextChannel = await client.channels.fetch('990598535089123398') as discord.TextChannel
 
     let Embed = new discord.MessageEmbed()
         .setAuthor({ name: user.tag, iconURL: user.avatarURL() })

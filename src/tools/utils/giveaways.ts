@@ -88,7 +88,7 @@ function inputAttachmentOptional(client: discord.Client, user: discord.User, que
 }
 
 async function finalize(client: discord.Client, user: discord.User, info) {
-    let Channel: discord.TextChannel = await client.channels.fetch('985327180978479124') as discord.TextChannel
+    //let Channel: discord.TextChannel = await client.channels.fetch('991748086563098624') as discord.TextChannel
 
     let Embed = new discord.MessageEmbed()
         .setAuthor({ name: user.tag, iconURL: user.avatarURL() })
@@ -130,8 +130,9 @@ async function finalize(client: discord.Client, user: discord.User, info) {
                 // Ending info
                 info.Ends = new Date(Date.now() + ms(info.Ends))
                 let Ends = new Date(info.Ends)
+                let unix = Math.floor(Ends.getTime() / 1000)
                 let EndsString = `${Ends.getFullYear()}-${Ends.getMonth() + 1}-${Ends.getDate()} ${Ends.getHours()}:${Ends.getMinutes()}:${Ends.getSeconds()}`
-                Embed.addField('Ends', Ends.toLocaleString())
+                Embed.addField('Ends', `<t:${unix}>`)
 
                 // Posting to chanel
                 let Channel: discord.TextChannel = await utils.apps.discord.Client.guilds.cache.get(process.env.DISCORD_GUILD).channels.fetch('979748078171070564') as discord.TextChannel
@@ -208,6 +209,18 @@ export async function run(interaction, client) {
                                 .then(async (response: string) => {
                                     let Ends = response
                                     console.log(Ends)
+
+                                    if (!ms(Ends)) {
+                                        let Embed = new discord.MessageEmbed()
+                                            .setAuthor({ name: user.tag, iconURL: user.avatarURL() })
+                                            .setTitle(`Prompt Cancelled`)
+                                            .setDescription(`Please send a valid time!`)
+                                            .setTimestamp()
+                                            .setColor('#eb4334')
+                                            .setFooter('Academy Helper')
+
+                                        return await user.send({ embeds: [Embed] })
+                                    }
 
                                     //Image
                                     inputAttachmentOptional(client, user, { title: `Would you like to upload an image to your application?`, description: `If you would like to upload an image to your application, send the attachment; if not, please click 'Done!'` }, 30)

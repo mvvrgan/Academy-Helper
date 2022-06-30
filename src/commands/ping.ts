@@ -6,7 +6,7 @@ const data = {
 }
 
 function run (interaction: any, client: any) {
-    interaction.editReply(`pong! (${Math.round(client.ws.ping)}ms)`)
+    interaction.reply(`pong! (${Math.round(client.ws.ping)}ms)`)
 }
 
 export {data, run}
