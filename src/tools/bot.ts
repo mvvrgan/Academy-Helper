@@ -40,6 +40,16 @@ export async function start() {
             return;
         }
 
+        let logChannel:discord.TextChannel = Client.channels.cache.get("955861798437924956") as discord.TextChannel
+        logChannel.send({ embeds: [
+            new discord.MessageEmbed()
+                .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.avatarURL() })
+                .setTitle(`Used command: ${command.data.name}`)
+                .setColor('#eb4334')
+                .setFooter('Academy Helper')
+                .setTimestamp()
+        ]})
+
         command.run(interaction, Client)
     });
 }
